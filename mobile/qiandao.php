@@ -13,8 +13,6 @@ $smarty->debugging = false;
 $smarty->caching = false;
 $smarty->compile_dir = $apppath.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'templates_c'.DIRECTORY_SEPARATOR;
 if($myinfo['flag']==1){//没有签到
-
-
 	$wall_config_m=new M('wall_config');
 	$wall_config=$wall_config_m->find('1');
 	$smarty->assign('wall_config',$wall_config);

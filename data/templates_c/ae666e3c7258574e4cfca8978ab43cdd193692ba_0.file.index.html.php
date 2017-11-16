@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-11-16 10:15:12
+/* Smarty version 3.1.29, created on 2017-11-16 15:52:34
   from "E:\website\cj.51ying.net\mobile\template\index.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5a0cf4b05d7181_40824283',
+  'unifunc' => 'content_5a0d43c2ee7062_14553627',
   'file_dependency' => 
   array (
     'ae666e3c7258574e4cfca8978ab43cdd193692ba' => 
     array (
       0 => 'E:\\website\\cj.51ying.net\\mobile\\template\\index.html',
-      1 => 1510798509,
+      1 => 1510818753,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5a0cf4b05d7181_40824283 ($_smarty_tpl) {
+function content_5a0d43c2ee7062_14553627 ($_smarty_tpl) {
 ?>
 <!doctype html>
 <html lang="en">
@@ -120,9 +120,9 @@ if ($_tmp1 == 'A' || $_tmp2 == 'B' || $_tmp3 == 'C') {?>
     </div>
 </div>
 <!--悬浮按钮-->
-<a id="fix-btn" href="javascript:void(0)">
+<!-- <a id="fix-btn" href="javascript:void(0)">
         <img src="template/static/images/nav.svg" alt="">
-</a>
+</a> -->
 <div id="mask"></div>
 <div id="nav" class="nav">
     <div id="nav-content">
@@ -131,13 +131,14 @@ if ($_tmp1 == 'A' || $_tmp2 == 'B' || $_tmp3 == 'C') {?>
             <li>
                 <a href="qiandao.php"><img src="template/static/images/icon1.png" alt="">签到</a>
             </li>
+			<!--
             <li>
                 <a href="conversation.php"><img src="template/static/images/icon2.png" alt="">预约</a>
             </li>
             <li>
                 <a href="login.php"><img src="template/static/images/icon1.png" alt="">招商经理登陆</a>
             </li>
-            <!--
+           
             <li>
                 <a href="#1"><img src="template/static/images/icon3.png" alt="">上墙</a>
             </li>

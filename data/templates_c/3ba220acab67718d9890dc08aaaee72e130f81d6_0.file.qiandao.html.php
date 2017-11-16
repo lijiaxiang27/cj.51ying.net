@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2017-11-15 17:17:27
+/* Smarty version 3.1.29, created on 2017-11-16 15:47:39
   from "E:\website\cj.51ying.net\mobile\template\qiandao.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5a0c06271e5ed1_40823271',
+  'unifunc' => 'content_5a0d429b253a36_98926671',
   'file_dependency' => 
   array (
     '3ba220acab67718d9890dc08aaaee72e130f81d6' => 
     array (
       0 => 'E:\\website\\cj.51ying.net\\mobile\\template\\qiandao.html',
-      1 => 1510737309,
+      1 => 1510818456,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5a0c06271e5ed1_40823271 ($_smarty_tpl) {
+function content_5a0d429b253a36_98926671 ($_smarty_tpl) {
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,48 +53,80 @@ function content_5a0c06271e5ed1_40823271 ($_smarty_tpl) {
     <?php echo '</script'; ?>
 >
     <style>
-        .qiandao-box{
-            padding-top:0;
-        }
-        .qiandao-box .row{
-            margin-left:0;
-            border-bottom: 1px solid #ddd;
-        }
-       .qiandao-box .row label{
-           height:36px;
-           line-height:42px;
-           font-size: 0.32rem;
-       }
-        .qiandao-box .row input{
-            height:42px;
-            line-height: 36px;
-            font-size: 0.3rem;
-            border: none;
-            -webkit-box-shadow:none;
-            box-shadow:none;
-            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-            -webkit-appearance: none;
-        }
-        .btn{
-            width:90%;
-            display: block;
-            background:rgb(56,200,0);
-            color:white;
-            text-align: center;
-            border-radius: 3px;
-            margin:20px auto 0;
-            outline: none;
-            border: none;
-            height:0.8rem;
-            line-height:0.6rem;
-            font-size: 0.36rem;
-        }
+        body{
+              background: rgb(255,222,3);
+          }
+          .form{
+              border: 1px solid rgb(80,80,80);
+              border-radius:5px;
+              width:76%;margin: 0.3rem auto 0;
+          }
+          .form input{
+              width:100%;
+              height:0.9rem;
+              font-size: 0.3rem;
+              -webkit-appearance: none;
+              background:rgb(255,222,3);
+              text-indent: 0.3rem;
+          }
+          .form input:nth-child(1){
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px;
+			  border-bottom-left-radius:0;
+              border-bottom-right-radius:0;
+          }
+          .form input:nth-child(2){
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+          }
+          .btn{
+              width:76%;
+              border-radius:5px;
+              background:rgb(45,36,31);
+              text-align: center;
+              height:0.9rem;
+              line-height: 0.6rem;
+              color:white;
+              display: block;
+              margin: 0.25rem auto;
+              font-size: 0.34rem;
+              letter-spacing: 1px;
+          }
+		  .btn:hover{
+		    color:white;
+		  }
+		  .btn:focus{
+		    color:white;
+		  }
+		  .btn:visited{
+		    color:white;
+		  }
+		  .btn:active{
+		    color:white;
+		  }
     </style>
 </head>
 <body>
 <div class="qiandao-box">
+    <img class="img-responsive" src="template/static/images/login.jpg" alt="">
+    <div class="form">
+	   <?php if ($_smarty_tpl->tpl_vars['wall_config']->value['name_switch'] == 1) {?>
+        <input type="text" placeholder="姓名" style="border-bottom: 1px solid rgb(80,80,80)" id='realname'>
+		 <?php }?>
+		 <?php if ($_smarty_tpl->tpl_vars['wall_config']->value['phone_switch'] == 1) {?>
+        <input placeholder="联系电话" id="mobile" type="tel" >
+		<?php }?>
+		
+		
+		<input type="hidden" id="openid" value="<?php echo $_smarty_tpl->tpl_vars['user']->value['openid'];?>
+"/>
+    </div>
+
+    <button class="btn btn_register">提交</button>
+</div>
+
+<!--  line  -->
+<!-- <div class="qiandao-box">
     <img class="img-responsive" src="template/static/images/banner.jpg" alt="banner" title="banner">
     <div class="container">
 	<?php if ($_smarty_tpl->tpl_vars['wall_config']->value['name_switch'] == 1) {?>
@@ -114,7 +146,11 @@ function content_5a0c06271e5ed1_40823271 ($_smarty_tpl) {
     </div>
 
     <button class="btn btn_register">确认签到</button>
-</div>
+</div> -->
+
+    <?php echo '<script'; ?>
+ src="template/static/js/layer.js"><?php echo '</script'; ?>
+>
 	<?php echo '<script'; ?>
 >
 
@@ -123,6 +159,32 @@ $(".btn_register").on("click",function(){
 	var realname=$('#realname').val();
 	var mobile=$('#mobile').val();
 	var openid=$('#openid').val();
+	
+	if(realname === ""){
+	  layer.open({
+		content:'请输入姓名',
+		skin: 'msg',
+		time: 2
+	  });
+	  return false;
+	}
+	if(mobile === ""){
+	  layer.open({
+		content:'请输入联系电话',
+		skin: 'msg',
+		time: 2
+	  });
+	  return false;
+	}
+	 if(!(/^1[34578]\d{9}$/.test(mobile))){//对用户输入的手机号进行正则验证
+             layer.open({
+				content:'手机号码有误，请重新填写',
+				skin: 'msg',
+				time: 2
+			  });
+            return false;
+        }
+
 	_meepoajax._ajax({
 				do_it:'user_register',
 				type: "POST",                        
@@ -136,7 +198,11 @@ $(".btn_register").on("click",function(){
 							window.location.reload();
 							},2000);
 						}else{
-							_loading_toast._show(r.message);
+						    layer.open({
+								content:r,message,
+								skin: 'msg',
+								time: 2
+							  });
 						}
 				}
 		})
