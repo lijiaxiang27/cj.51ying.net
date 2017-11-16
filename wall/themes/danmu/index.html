@@ -1,0 +1,237 @@
+ 
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>大屏幕弹幕新版</title>
+<link rel="stylesheet" href="themes/danmu/css/danmu.css">
+<link rel="stylesheet" href="themes/danmu/css/danmu2016.css">
+<link rel="stylesheet" href="themes/danmu/css/emoji-weixin.css?v=v0427" type="text/css" />
+<script type="text/javascript" src="themes/danmu/js/modernizr.custom.17774.js"></script>
+<script type="text/javascript" src="themes/danmu/js/createjs/easeljs-0.8.0.min.js"></script>
+<script type="text/javascript" src="themes/danmu/js/createjs/tweenjs-0.6.0.min.js"></script>
+<script type="text/javascript" src="themes/danmu/js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="themes/danmu/js/jquery.transit.min.js"></script>
+  <script type="text/javascript" src="themes/danmu/js/jquery.pause.min.js"></script>
+  <script type="text/javascript" src="js/jquery.soChange-min.js"></script>
+  <link rel="stylesheet" href="css/emoji.css" type="text/css">
+  <link rel="stylesheet" href="../files/css/semantic.min.css" type="text/css">
+<style>
+.danmu-row{ height:105px; }
+</style>
+<script>
+{literal}
+var oopen = '';
+var mtime;
+var lastid ={/literal}{$lastid}{literal};
+{/literal}
+function switchto(former,toer){
+  console.log(former);
+  if(former == ''){
+
+    $("#list").toggleClass('hidden');
+    $("#"+toer).toggleClass('hidden');
+    $('.danmu-box').toggleClass('hidden');
+    danmutoggle();
+    }
+  if(former != '' && toer != ''){
+      if(former == toer){
+        $("#list").toggle('normal');
+        $("#"+toer).toggle('normal');
+        $('.danmu-box').toggleClass('hidden');
+        danmutoggle();
+      }else{
+        $("#"+former+"").toggleClass('hidden');
+        $("#"+toer+"").toggleClass('hidden');
+        $('.danmu-box').toggleClass('hidden');
+        danmutoggle();
+      }
+    }
+  if(toer == 'sign' && former != 'sign'){
+      if(!opened){
+        mperson=setInterval(personAdd,300);
+        qdqopen = 1;
+        persondata();
+        }else if(opened==1){
+          clearInterval(mperson);
+          qdqopen = 0;
+          opened = 2;
+          }
+    }else if(former == 'sign'){
+          clearInterval(mperson);
+          qdqopen = 0;
+      }
+     if(former == toer){
+        oopen = '';
+      }else{
+        oopen = toer;
+        }
+  return oopen; 
+  }
+    function viewExplan() {
+      // $("#explan").hide();
+      $("#explan").toggle('normal');
+      $('.danmu-box').toggleClass('hidden');
+      danmutoggle();
+        // $("#explan").transition('fade up');
+    }
+
+    function viewstyle() {
+      // $("#style").show();
+      $("#style").toggleClass('hidden');
+      $('.danmu-box').toggleClass('hidden');
+      // if(!$('#ddp_layer').hasClass('hidden')){
+      //   $('#ddp_layer').addClass('hidden');
+      // }
+      // if(!$('#cj_layer').hasClass('hidden')){
+      //   $('#ddp_layer').addClass('hidden');
+      // }
+      // if(!$('#vote_layer').hasClass('hidden')){
+      //   $('#ddp_layer').addClass('hidden');
+      // }
+      // $('#cj_layer').hasClass('hidden');
+      // $('#vote_layer').hasClass('hidden');
+      danmutoggle();
+        // $("#style").transition('scale');
+    }
+    function danmutoggle(){
+      if($('.danmu-box').hasClass('hidden')){
+        danmu.stop();
+      }else{
+        danmu.play();
+      }
+    }
+var danmuConfig = {
+    // domain: "wxscreen",
+    msgUrl: "/wall/api.php",
+    canvas:  0 ,
+    isDefaultStyle:  true ,
+    
+    isLoop: {$config['circulation']},    // 循环的判断
+    
+    danmuType:"2",
+    // 是否开启匿名
+  	openAnonymous: "0"
+};
+</script>
+</head>
+
+
+<body style="">
+<div id="wrap" >
+  <div class="danmu-box hidden">
+	    <div id="js_dRow0" class="danmu-row danmu-row1" style="top:20px;"></div>
+	    <div id="js_dRow1" class="danmu-row danmu-row2" style="top:145px;"></div>
+	    <div id="js_dRow2" class="danmu-row danmu-row3" style="top:270px;"></div>
+	    <div id="js_dRow3" class="danmu-row danmu-row4" style="top:395px;"></div>
+	    <div id="js_dRow4" class="danmu-row danmu-row5" style="top:520px;"></div>
+	    <div id="js_dRow5" class="danmu-row danmu-row6" style="top:645px;"></div>
+	    <div id="js_dRow6" class="danmu-row danmu-row7" style="top:770px;"></div>
+	    <div id="js_dRow7" class="danmu-row danmu-row8" style="top:895px;"></div>
+	    <div id="js_dRow8" class="danmu-row danmu-row9" style="top:1020px;"></div>
+	    <div id="js_dRow9" class="danmu-row danmu-row10" style="top:1145px;"></div>
+  </div>
+  <div class="ui transition hidden" onclick="viewstyle();" id="style" >
+    <div class="ui teal segment style-box">
+        <div class="ui ribbon teal label"><b style="font-size:3.4em;">微信墙风格选择</b></div>
+        <div class="style-con">
+                {foreach from=$styles item=$row}
+                <div class="style-img">
+                    <a href="{$row['link']}"><img src="{$row['image']}" ></a>
+                    <div class="style-tx"><b>{$row['name']}</b></div>
+                </div>
+                {/foreach}
+        </div>
+    </div>
+</div>
+<!--插件层-->
+{foreach from=$plugs item=$row key=name}
+{if $row==1}
+    {include file = $name|cat:'_plug/'|cat:$name|cat:'_html.php'}
+{/if}
+{/foreach}
+</div>
+
+<style>
+.fl-pair {
+width: 892px;
+height: 570px;
+position: absolute;
+top: 200px;
+margin: 0px auto;
+z-index: 7;
+}
+</style>
+<div id="explan" onClick="viewExplan();" class="ui primary segment">
+    <div class="ui ribbon green label"><b style="font-size:50px;">上墙关注：</b></div>
+    <div class="erweima">
+        <center>
+            <div class="mabox">
+                {if $weibo}
+                <div class="pic"><center><a class="ui green label"><b style="font-size:2em;line-height: 1.7em;">微博:{$weiboconf['nickname']}</b></a></center><img src="{$weiboconf['erweima']}" width='362px' height='362px'/></div>
+                {/if}
+                {if $weixin}
+                <div class="pic">
+                  <center style="float:left; width:488px;">
+                      <div style="font-size:30px; font-family:'微软雅黑'; padding-bottom:40px; padding-left:44px; padding-top:22px; text-align:left;">添加微信公众号：</div>
+                        <a class="ui blue label"><b style="font-size:2em;line-height: 1.7em;">{$dianplu_wxh}</b></a><b style="font-size:43px; line-height:58px; margin-top:15px; font-family:'微软雅黑'; text-align:left; display:block; padding-left:44px;">按照提示回复,编辑您<br/>想说的话,回复到公众号微信,即可参与上墙！</b></center><img src="{$weixinconf['erweima']}" width='362px' height='362px'/></div>
+                {/if}
+            </div>
+        </center>
+    </div>
+    <div class="ui bottom right attached label vote-right"><a class="ui black circular label">×</a></div>
+</div>
+  <div class="footer clearfix" >
+    <div class="btns">
+           <a href="/3dsign/index.php" class="tooltip btn3d  btn-icon btn-3d" title="点击按钮跳转至3D签到墙"  id="btnCheckin">3D签到墙</a>
+            <a onClick="viewstyle();" class="tooltip btnSkinSel  btn-icon btn-style" title="更换风格，快捷键F">风格选择</a>
+            {if $plugs['ddp']}
+            <a href="javascript:void(0);" class="tooltip btnDdp     btn-icon btn-pair " title="对对碰，快捷键D，【空格】开始">对对碰</a>
+            {/if}
+            {if $plugs['shake']}
+            <a href="../shake/index.php" class="tooltip btnCheckin  btn-icon btn-shake" target="_blank" title="摇一摇，快捷键Y">摇一摇</a>
+            {/if}
+            {if $plugs['tug']}
+            <a href="../tug/index.php" class="tooltip btnCheckin  btn-icon btn-tug" target="_blank" title="拔河">拔河</a>
+            {/if}
+            {if $plugs['ppl']}
+            <a href="../paipaile/index.php" class="tooltip btn-icon btn-ppl" target="_blank" title="拍拍乐，快捷键P">拍拍乐</a>
+            {/if}
+            {if $plugs['cj'] || $plugs['cjg']}
+            <a  href="javascript:void(0);" class="tooltip btnLottery btn-icon btn-lottery "  title="抽奖，快捷键C，【空格】开始">抽奖</a>
+            {/if}
+            {if $plugs['vote']}
+            <a href="###" class="tooltip btnVote    btn-icon btn-vote "  title="投票，快捷键T">投票</a>
+            {/if}
+            <!-- <a href="###" class="tooltip btnFullscreen  btn-icon "  title="全屏">全屏</a> -->
+
+        </div>
+  </div>
+  <script type="text/javascript" src="themes/danmu/js/wxscreen/production/app/client.min.js?v=v047"></script>
+  <script type="text/javascript" src="themes/danmu/js/wxscreen/production/app/danmu.min.js?v=v047"></script>
+<script type="text/javascript">
+// console.log(danmuConfig);
+{literal}
+danmu.setConf(danmuConfig);
+$(function(){
+  // if(danmuConfig.domain /*&& window === top*/) {
+    danmu.init();
+    if(window === top) danmu.play();
+  // }
+
+  var left=($(document).width()-$('.fl-lottery').width())/2;
+  $('.fl-lottery').css({"left":left+'px'});
+  $('.fl-pair').css({"left":left+'px'});
+  // $('.fl-lottery').width();
+  // $('.fl-pair').left(left);
+});
+{/literal}
+</script>
+
+<style type="text/css">
+  #explan .pic center{ width:100%; }
+  .mabox{ width:100%; }
+  #explan .pic{ width:100%; max-width:100%; margin-right:30px; }
+</style>
+</body>
+</html>

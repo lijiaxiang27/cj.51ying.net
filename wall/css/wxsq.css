@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ padding:0; margin:0; }
+
+body{ margin:0; padding:0; min-height:768px; min-width:1024px; background-repeat:repeat; background-size:cover; overflow:hidden; }
+
+
+.loginform{ width:732px; height:310px; margin:auto; overflow:hidden; }
+
+.loginform .whitebg{  width:520px; height:156px; left:50%; margin-left:-366px; top:50%; margin-top:-180px; padding:74px 106px 80px 106px; border-radius:15px; background-color:#fff; opacity:0.6; position:absolute; z-index:88; }
+
+.loginform .forminfo{  width:520px; height:156px; left:50%; margin-left:-366px; top:50%; margin-top:-180px; padding:74px 106px 80px 106px; position:absolute; z-index:89; }
+
+.loginform .forminfo .logintit{ font-size:28px; color:#575656; font-family:'微软雅黑'; margin-bottom:18px; opacity:1!important; }
+
+.loginform .forminfo .inputstyle{ width:509px; height:28px; font-family:'微软雅黑'; font-size:18px; padding:5px; line-height:35px; margin-bottom:18px; color:#666; border:1px solid #bdc3c7; border-radius:6px; background:#fff url(../images/pwdicon.png) no-repeat 488px center; *margin-left:364px; }
+
+.loginform .forminfo .button-login{ width:520px; height:48px; line-height:48px; text-align:center; font-size:24px; font-family:'微软雅黑'; border:none; border-radius:6px; color:#fff; cursor:pointer; opacity:1!important; background:#132b72 url(../images/btnshape.png) no-repeat center center; }
+
+

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>签到成功</title>
+    <link rel="stylesheet" href="template/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="template/static/css/style.css">
+    <script src="template/static/js/jquery-3.2.1.min.js"></script>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;if(deviceWidth > 750)
+            deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        $(window).resize(function() {
+            var deviceWidth = document.documentElement.clientWidth;
+            if(deviceWidth > 750)
+                deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        });
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="content-box">
+    <div class="container">
+        <div class="user-information">
+            <p>恭喜您签到成功</p>
+            <!--头像-->
+            <div class="tx-box">
+                <img class="img-responsive" src="{$user['avatar']}" alt="">
+            </div>
+            <p class="user-name">{$user['signname']}</p>
+            <p class="user-rank">您是第{$user['id']}号签到</p>  
+            <p id="seat-number">座位号：<span>{$seats['seates_area']}区 {$seats['seates_code']}</php></span></p>
+            <p class="" style="margin-bottom: 2px;">舞台</p>
+			{$area=$seats['seates_area']}{$row=mb_substr($seats['seates_code'],0,1)}{$cloumn=mb_substr($seats['seates_code'],2,1)}
+        </div>
+		
+        <div class="seat">
+            <div class="row" id="seat_repeat">
+
+            </div>
+        </div>
+        <div class="legend clearfix">
+            <p><img src="template/static/images/k.jpg" alt="">&nbsp;&nbsp;&nbsp;嘉宾席</p>
+          
+            <p><img src="template/static/images/j.jpg" alt="">&nbsp;&nbsp;&nbsp;您的座位</p>
+          
+        </div>
+    </div>
+</div>
+<div class="arrow-top" id="top">
+    <img src="template/static/images/arrow.png" alt="">
+</div>
+
+<div class="bottom-box" id="bottom-box">
+    <div class="bottom-header">
+        <h4 class="clearfix">功能列表 <span id="close-bottom">关闭</span></h4>
+    </div>
+    <div class="bottom-content">
+        <table>
+            <tr>
+                <td style="border-left:none;">
+                    <a href="#1"><img src="template/static/images/icon1.png" alt=""></a>
+                    <p>签到</p>
+                </td>
+                <td>
+                    <a href="conversation.php"><img src="template/static/images/icon2.png" alt=""></a>
+                    <p>预约</p>
+                </td>
+                <td  style="border-right:none;">
+                    <a href="#1"><img src="template/static/images/icon3.png" alt=""></a>
+                    <p>上墙</p>
+                </td>
+            </tr>
+            <tr>
+                <td  style="border-left:none;">
+                    <a href="login.php"><img src="template/static/images/icon4.png" alt=""></a>
+                    <p>客户经理登陆</p>
+                </td>
+                <td>
+                    <a href="#1"><img src="template/static/images/icon5.png" alt=""></a>
+                    <p>摇一摇</p>
+                </td>
+                <td style="border-right:none;">
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="bottom-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div>
+                        <img class="img-thumbnail" src="template/static/images/ewm.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <p>方便您退出后二次进入强烈建议您长按二维码进行保存</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mask" id="mask"></div>
+<script>
+   var bg_box = [
+        'A','B','C','D','E','F','G','H','I','J','K'
+    ];
+
+    function id(){
+        var parent = $('#seat_repeat');
+        for(var i = 0;i <9;i++){
+            var col = $('<div class="col-xs-4"></div>');
+            var p = $('<p class="text-center user-area">'+bg_box[i]+'区<p/>');
+            var table = $('<table></table>');
+            parent.append(col);
+            col.append(p);
+            col.append(table);
+            for(var j = 0;j<4;j++){
+                var tr = $('<tr></tr>');
+                table.append(tr);
+                for(var k = 0;k<9;k++){
+                    var td = $('<td class="seat-every"></td>');
+                    var img = $('<img class="img-responsive"/>');
+                    if(i < 3 && j < 1){
+                        img.attr('src','template/static/images/'+bg_box[10]+'.jpg');
+                        img.attr('src','template/static/images/'+bg_box[10]+'.jpg');
+                    }
+                    else{
+                        img.attr('src','template/static/images/'+bg_box[i]+'.jpg');
+                        img.attr('src','template/static/images/'+bg_box[i]+'.jpg');
+                    }
+
+                    td.append(img);
+                    tr.append(td);
+                }
+            }
+        }
+    }
+    id();
+    function px(user){
+        var  index,
+             a      = user[0],
+             b      = user[1],
+             c      = user[2];
+
+        for(var q = 0; q < bg_box.length; q++){
+            if(a === bg_box[q]){
+                index = q;
+            }
+        }
+        console.log(index);
+        var current_col = $('#seat_repeat').children();
+        var current_td = current_col.eq(index).find('tr').eq(b-1).children().eq(c-1);
+
+        $.each(current_col,function (i,e) {
+            if(i !== index){
+                current_col.eq(i).find('img').attr('src','template/static/images/L.png');
+                current_col.eq(i).find('img').attr('src','template/static/images/L.png');
+            }
+        });
+
+
+        current_td.css('position','relative');
+        current_td.find('img').attr('src','template/static/images/j.jpg');
+        current_td.find('img').attr('src','template/static/images/j.jpg');
+
+        var current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.6rem;left:-0.65rem;" src="template/static/images/your_seat.png"/>');
+        var current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.6rem;left:-0.65rem;" src="template/static/images/your_seat.png"/>');
+        if(index % 3 ===0 && c < 3){
+            current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.6rem;left:-0.2rem;" src="template/static/images/your_seat_2.png"/>');
+            current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.6rem;left:-0.2rem;" src="template/static/images/your_seat_2.png"/>');
+        }
+        if(index % 3 ===2 && c > 7){
+            current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.7rem;left:-0.95rem;" src="template/static/images/your_seat_3.png"/>');
+            current_title = $('<img style="position: absolute;width:1.4rem;height:auto;top:-0.7rem;left:-0.95rem;" src="template/static/images/your_seat_3.png"/>');
+        }
+        current_td.append(current_title);
+    }
+
+
+    px(["{$area}",{$row},{$cloumn}]);
+
+
+
+    $(document).ready(function(){
+        var close  = $('#close-bottom');
+        var bottom = $('#bottom-box');
+        var mask   = $('#mask');
+        var top    = $('#top');
+        var tds    = bottom.find('td');
+        $.each(tds,function (i,e) {
+            tds.eq(i).mousedown(function(){
+                console.log(i);
+                tds.find('a').css('border','0.1rem solid white');
+                tds.eq(i).find('a').css('border','0.1rem solid rgb(230,230,230)');
+            })
+        });
+        top.click(function(){
+            mask.fadeIn(200);
+            bottom.css({
+                'bottom':'0'
+            });
+            $(this).css({
+                'bottom':'-10%'
+            })
+        });
+        close.click(function(){
+            bottom.css({
+                'bottom':'-7rem'
+            });
+            mask.fadeOut(200);
+            top.css({
+                'bottom':'0'
+            })
+        })
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#wrap{ background:url(../images/danmu2016/bg1.jpg) center center no-repeat; background-size:cover;}
+
+.danmu-item{ display:inline-block; padding:10px 40px 10px 140px; background:rgba(0,0,0,0.5); box-shadow:0 0 5px rgba(218,229,253,0.75); border-radius:6px;}
+.danmu-item .box{ display:inline-block; width:80px; height:80px; border-radius:80px; box-shadow:0 0 18px rgba(158,249,250,.8); float:left; margin-left:-120px;}
+.danmu-item .box img{ width:80px; height:80px; border-radius:80px;}
+.danmu-item .con{ line-height:80px; font-size:32px; white-space:nowrap;}
+.danmu-item .con .name{ font-size:32px;}
+
+
+.footer {position: absolute; bottom: 20px;left: 50%;padding: 0 40px;width: 944px;margin-left: -512px;}
+.logo-box{ text-align:center;}
+.logo-box img{ vertical-align:middle; margin:0 5px;}
+.logo-box .logo-quxianchang{ position:relative; top:-8px;}

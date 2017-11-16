@@ -1,0 +1,101 @@
+
+<link href="template/app/css/vote3.css" rel="stylesheet" type="text/css">
+<link href="template/app/css/vote.css" rel="stylesheet" type="text/css">
+
+<style>
+{literal}
+.pay_list_c1 {
+	width: 100%;
+	height: 24px;
+	cursor: pointer;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.radioclass {
+	opacity: 0;
+	cursor: pointer;
+}
+
+.refresh_vote {
+	background-color: rgba(0, 0, 0, 0.4);
+	bottom: 200px;
+	position: fixed;
+	right: 14px;
+	text-align: center;
+	z-index: 11;
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+}
+
+.refresh_vote img {
+	padding: 5px;
+	display: block;
+	height: 40px;
+	width: 40px;
+}
+
+.vote_disabled {
+	display: none
+}
+{/literal}
+</style>
+</head>
+<body style="background: white">
+	<div class="weui_cells weui_cells_form" style="border-top: none">
+		{if $wall_config['name_switch']==1}
+		<div class="weui_cell" style="border-top: none">
+			<div class="weui_cell_hd" style="border-top: none">
+				<label class="weui_label">姓名</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary" style="border-top: none">
+				<input class="weui_input" id="realname" type="text" placeholder="请输入您的姓名" />
+			</div>
+		</div>
+		{/if}
+		{if $wall_config['phone_switch']==1}
+		<div class="weui_cell">
+			<div class="weui_cell_hd" style="border-top: none">
+				<label class="weui_label" style="border-top: none">手机</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" id="mobile" type="text" placeholder="请输入您的手机号" />
+			</div>
+		</div>
+		{/if}
+		<input type="hidden" id="openid" value="{$user['openid']}"/>
+	</div>
+	<div class="weui_btn_area">
+		<a class="weui_btn weui_btn_primary btn_register" href="javascript:">确定签到</a>
+	</div>
+	<script>
+{literal}
+$(document).ready(function(){
+$(".btn_register").on("click",function(){
+	var realname=$('#realname').val();
+	var mobile=$('#mobile').val();
+	var openid=$('#openid').val();
+	_meepoajax._ajax({
+				do_it:'user_register',
+				type: "POST",                        
+				dataType: 'json',      
+				cache: false,                 
+				formPata:{'openid':openid,'realname':realname,'mobile':mobile},
+				success:function(r) {
+						if(r.errno==0){
+							_loading_toast._show(r.message);
+							setTimeout(function(){  
+							window.location.reload();
+							},2000);
+						}else{
+							_loading_toast._show(r.message);
+						}
+				}
+		})
+})
+});
+{/literal}
+</script>

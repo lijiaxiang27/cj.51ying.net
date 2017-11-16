@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择预约时间</title>
+    <link rel="stylesheet" href="template/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="template/static/css/style.css">
+    <script src="template/static/js/jquery-3.2.1.min.js"></script>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;if(deviceWidth > 750)
+            deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        $(window).resize(function() {
+            var deviceWidth = document.documentElement.clientWidth;
+            if(deviceWidth > 750)
+                deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        });
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="content-box">
+    <div class="container teacher-box">
+        <div class="row order-row">
+            <div class="col-xs-4">
+                <div>
+                    <img class="img-thumbnail " src="{$data['teacher']['t_img']}" alt="">
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div>
+                    <p class="clearfix">{$data['teacher']['t_name']}</p>
+                    <p>{$data['teacher']['t_introduce']}</p>
+                </div>
+            </div>
+        </div>
+        <table id="tab">
+		
+
+			{foreach key=k item=v from=$data}
+			{if $k eq 'teacher'}
+			{continue}
+			{/if}
+            <tr>
+                <td rowspan="{count($v)+1}" class="left">{$k}</td>
+            </tr>
+			{foreach key=key item=val from=$v}
+			<tr>
+				<td class="right">
+					<span>{date('H:i',$val['time'])}--{date('H:i',$val['time']+3600)}</span>
+					<!--如果当前时间小于交谈时间，并且状态为0 则表示可以预约-->
+					{if $val['time'] gt time()&& $val['status']==0}
+					<a class="btn-1" href="conversation.php?c_id={$val['id']}">可预约</a>
+					<!--如果当前时间小于交谈时间，并且状态为1，表示已经有人预约了-->
+					{elseif $val['time'] gt time() && $val['status']==1}
+					<a class="btn-2" href="#1">已预约</a>				
+					<!--如果当前时间大于交谈时间，并且状态为0，表示已结束-->
+					{elseif $val['time'] lt time() && $val['status']==0 }
+					<a class="btn-0" href="#1">已结束</a>
+					<!--状态为3洽谈中-->				
+					{elseif $val['status']==3}
+					<a class="btn-3" href="#1">洽谈中</a>
+					<!--如果状态为2 表示已经交谈完成了-->
+					{else}
+					<a class="btn-4" href="#1">已完成</a>
+					{/if}
+				</td>
+			</tr>
+			{/foreach}
+         
+			{/foreach}
+         <!--
+            <tr>
+                <td rowspan="5" class="left">11月19日</td>
+                <td class="right"><span>9:00-10:00</span><a class="btn-0" href="#1">已结束</a></td>
+            </tr>
+            <tr>
+                <td  class="right"><span>10:00-11:00</span> <a class="btn-1" href="#1">可预约</a></td>
+            </tr>
+            <tr>
+                <td  class="right"><span>11:00-12:00</span> <a class="btn-2" href="#1">已预约</a></td>
+            </tr>
+            <tr>
+                <td  class="right"><span>14:00-15:00</span> <a class="btn-3" href="#1">洽谈中</a></td>
+            </tr>
+            <tr>
+                <td  class="right"><span>15:00-16:00</span> <a class="btn-4" href="#1">已完成</a></td>
+            </tr>
+			-->
+        </table>
+    </div>
+</div>
+
+
+<script>
+    var tab  = $('#tab');
+    var links =tab.find('a');
+    $.each(links,function (i,e) {
+        if(links.eq(i).hasClass('btn-0') || links.eq(i).hasClass('btn-4')){
+            links.eq(i).attr('disabled','true').css('pointer-events','none');
+        }
+    })
+</script>
+</body>
+</html>

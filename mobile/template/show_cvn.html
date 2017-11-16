@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理</title>
+    <link rel="stylesheet" href="template/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="template/static/css/style.css">
+    <script src="template/static/js/jquery-3.2.1.min.js"></script>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;if(deviceWidth > 750)
+            deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        $(window).resize(function() {
+            var deviceWidth = document.documentElement.clientWidth;
+            if(deviceWidth > 750)
+                deviceWidth = 750;document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+        });
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="content-box">
+    <div class="container teacher-box">
+        <h4 style="    padding: 0.25rem 0;">当前正在进行的洽谈</h4>
+			<p style='color:red;font-size:25px' >请勿重复点击结束商谈按钮！</p>
+		{if empty($data)}
+        <p style='color:red;font-size:25px' >没有更多会话了</p>
+		{/if}
+        {foreach key=k item=v from=$data}
+
+        <div class="row">
+            <div class="col-xs-4">
+                <div>
+                    <img class="img-thumbnail " src="{$v['t_img']}" alt="">
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div>
+                    {if $v['status'] eq 4}
+                    <!--manager_do.php?c_id={$v['id']}&time={$v['time']}&t_id={$v['teacher_id']}&stu=4-->
+                        <p class="clearfix">{$v['t_name']} <a class="order-btn" href="#1" he="manager_do.php?c_id={$v['id']}&time={$v['time']}&t_id={$v['teacher_id']}&stu=4">开始今天的商谈</a></p>
+                        <p>洽谈时间：{date('H:i',$v['time'])}--{date('H:i',$v['time']+3600)}<br/>开始洽谈后会立即短信通知第一位洽谈者</p>
+                    {else}
+                    <!-- manager_do.php?c_id={$v['id']}&time={$v['time']}&t_id={$v['teacher_id']}-->
+                        <p class="clearfix">{$v['t_name']} <a class="order-btn" href="#1" he="manager_do.php?c_id={$v['id']}&time={$v['time']}&t_id={$v['teacher_id']}">结束商谈</a></p>
+                        <p>洽谈时间：{date('H:i',$v['time'])}--{date('H:i',$v['time']+3600)}<br/>结束当前洽谈后会立即短信通知下一位洽谈者前来</p>
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        {/foreach}
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $('.order-btn').click(function () {
+            //获取url
+            var link=$(this).attr('he');
+            $.ajax({
+                type:'get',
+                url:link,
+                dataType:'json',
+                success:function (msg) {
+                    alert(msg);
+                    location.href='http://cj.51ying.net/mobile/login.php';
+                }
+            })
+        });
+    })
+</script>
